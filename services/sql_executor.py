@@ -6,7 +6,7 @@ import sqlite3
 def execute_sql_query(query):
 
     try:
-        connection = sqlite3.connect("Task_5/database/sales_database.db")
+        connection = sqlite3.connect("database/sales_database.db")
 
         cursor = connection.cursor()
 
