@@ -5,9 +5,10 @@ import time
 
 
 load_dotenv()
+model_name=os.getenv("MODEL")
 
 client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+    api_key=os.getenv("GEMINI_API_KEY"),
 )
 
 
@@ -20,7 +21,7 @@ def generate_sql_query(prompt):
 
         try:
             response = client.models.generate_content(
-                model="gemini-3.5-flash",
+                model=model_name,
                 contents=prompt
             )
 
@@ -40,3 +41,41 @@ def generate_sql_query(prompt):
             time.sleep(5)
 
     return None
+
+
+def get_sql_confidence(sql_query, user_question):
+    
+    prompt = f"""
+Context:
+You are a SQL quality reviewer.
+
+Role:
+Act as a senior SQL code reviewer.
+
+Task:
+Rate the confidence that this SQL query correctly answers the user's question.
+
+User Question: {user_question}
+Generated SQL: {sql_query}
+
+Constraints:
+- Return ONLY a JSON object
+- No explanation
+- No markdown
+
+Format:
+{{"confidence": 85, "reason": "one sentence reason"}}
+"""
+    
+    try:
+        response = client.models.generate_content(
+            model=model_name,
+            contents=prompt
+        )
+        
+        import json
+        text = response.text.strip().replace("```json","").replace("```","")
+        return json.loads(text)
+    
+    except:
+        return {"confidence": 0, "reason": "Could not assess confidence"}
