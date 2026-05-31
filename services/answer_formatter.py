@@ -1,17 +1,4 @@
-# services/answer_formatter.py
-
-from google import genai
-from dotenv import load_dotenv
-import os
-
-load_dotenv()
-model_name=os.getenv("MODEL")
-
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY"),
-)
-
-def format_answer_naturally(user_question, sql_results):
+def format_answer_naturally(user_question, sql_results, client, model_name):
     
     if not sql_results:
         return "No results found for your question."

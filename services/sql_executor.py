@@ -1,12 +1,16 @@
 import sqlite3
-
+import os
 
 # EXECUTE SQL QUERY
 
 def execute_sql_query(query):
 
     try:
-        connection = sqlite3.connect("database/sales_database.db")
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(base_dir, "..", "database", "sales_database.db")
+        db_path = os.path.normpath(db_path)
+
+        connection = sqlite3.connect(db_path)
 
         cursor = connection.cursor()
 

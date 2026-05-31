@@ -1,19 +1,7 @@
-from google import genai
-from dotenv import load_dotenv
-import os
 import time
 
-
-load_dotenv()
-model_name=os.getenv("MODEL")
-
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY"),
-)
-
-
 # GENERATE SQL USING GEMINI
-def generate_sql_query(prompt):
+def generate_sql_query(prompt, client, model_name):
 
     max_retries = 3
 
@@ -40,10 +28,10 @@ def generate_sql_query(prompt):
 
             time.sleep(5)
 
-    return None
+    return "Could not generate a response."
 
 
-def get_sql_confidence(sql_query, user_question):
+def get_sql_confidence(sql_query, user_question, client, model_name):
     
     prompt = f"""
 Context:
@@ -62,6 +50,7 @@ Constraints:
 - Return ONLY a JSON object
 - No explanation
 - No markdown
+- No extra text before or after
 
 Format:
 {{"confidence": 85, "reason": "one sentence reason"}}
@@ -74,8 +63,14 @@ Format:
         )
         
         import json
-        text = response.text.strip().replace("```json","").replace("```","")
+        text = response.text.strip().replace("```json","").replace("```","").strip()
+        # Find the JSON object within the response
+        start = text.find("{")
+        end = text.rfind("}") + 1
+        if start != -1 and end != 0:
+            text = text[start:end]
         return json.loads(text)
     
-    except:
+    except Exception as e:
+        print(f"Confidence check failed: {e}")
         return {"confidence": 0, "reason": "Could not assess confidence"}

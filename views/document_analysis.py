@@ -1,5 +1,4 @@
 import streamlit as st
-from google import genai
 from pypdf import PdfReader
 from docx import Document
 
