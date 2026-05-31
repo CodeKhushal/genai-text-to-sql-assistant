@@ -43,6 +43,29 @@ def show(client, model_name):
 
     st.title("🗄️ Text to SQL")
     st.write("Ask business questions in natural language.")
+    with st.expander("Available Tables & Example Questions"):
+        st.markdown("""
+### Customer
+- customer_id
+- name
+- email
+- join_date
+
+### Sales
+- sale_id
+- customer_id
+- product
+- amount
+- sale_date
+
+### Example Questions
+- Show all customers
+- Total sales by product
+- Top customers by revenue
+- Average sale amount
+- Sales in the last month
+- Highest selling product
+""")
     st.markdown("---")
 
     user_question = st.text_input("Enter your business question:")
