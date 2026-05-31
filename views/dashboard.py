@@ -1,9 +1,8 @@
 import streamlit as st
 
 def show():
-    st.title("🤖 AI Data Assistant")
-    st.write("Welcome to your AI-powered data platform. Select a service from the sidebar.")
-
+    st.title("🏠 Dashboard")
+    # st.write("Welcome to your AI-powered data platform. Select a service from the sidebar.")
     st.markdown("---")
 
     col1, col2 = st.columns(2)

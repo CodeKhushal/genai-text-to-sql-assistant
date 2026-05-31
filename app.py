@@ -70,19 +70,19 @@ with st.sidebar:
     st.title("🤖 AI Data Assistant")
     st.markdown("---")
 
-    if st.button("🏠 Dashboard", use_container_width=True):
+    if st.button("Dashboard", use_container_width=True):
         st.session_state.page = "🏠 Dashboard"
 
-    if st.button("📊 Activity Analysis", use_container_width=True):
+    if st.button("Activity Analysis", use_container_width=True):
         st.session_state.page = "📊 Activity Analysis"
 
-    if st.button("🔄 Data Augmentation", use_container_width=True):
+    if st.button("Data Augmentation", use_container_width=True):
         st.session_state.page = "🔄 Data Augmentation"
 
-    if st.button("📄 Document Analysis", use_container_width=True):
+    if st.button("Document Analysis", use_container_width=True):
         st.session_state.page = "📄 Document Analysis"
 
-    if st.button("🗄️ Text to SQL", use_container_width=True):
+    if st.button("Text to SQL", use_container_width=True):
         st.session_state.page = "🗄️ Text to SQL"
 
 # Current Page
