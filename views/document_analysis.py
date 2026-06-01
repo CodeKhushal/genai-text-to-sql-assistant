@@ -22,6 +22,9 @@ def read_docx(file):
 
 def ask_via_text(document_text, question, client, model_name):
 
+    if not document_text:
+        return None, "No document content available. Please upload and process a document first.", False
+
     MAX_CHARS = 30000
     truncated = False
 
