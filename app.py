@@ -73,6 +73,9 @@ with st.sidebar:
     if st.button("Dashboard", use_container_width=True):
         st.session_state.page = "🏠 Dashboard"
 
+    if st.button("Prompt Optimisation", use_container_width=True):
+        st.session_state.page = "✨ Prompt Optimisation"
+
     if st.button("Activity Analysis", use_container_width=True):
         st.session_state.page = "📊 Activity Analysis"
 
@@ -85,6 +88,12 @@ with st.sidebar:
     if st.button("Text to SQL", use_container_width=True):
         st.session_state.page = "🗄️ Text to SQL"
 
+    if st.button("RAG System", use_container_width=True):
+        st.session_state.page = "🔍 RAG System"
+
+    if st.button("RAG Evaluation", use_container_width=True):
+        st.session_state.page = "📊 RAG Evaluation"
+
 # Current Page
 page = st.session_state.page
 
@@ -92,6 +101,10 @@ page = st.session_state.page
 if page == "🏠 Dashboard":
     from views.dashboard import show
     show()
+
+elif page == "✨ Prompt Optimisation":
+    from views.prompt_optimization import show
+    show(client, model_name)
 
 elif page == "📊 Activity Analysis":
     from views.activity_analysis import show
@@ -107,4 +120,13 @@ elif page == "📄 Document Analysis":
 
 elif page == "🗄️ Text to SQL":
     from views.text_to_sql import show
+    show(client, model_name)
+
+# Add to routing
+elif page == "🔍 RAG System":
+    from views.rag_system import show
+    show(client, model_name)
+
+elif page == "📊 RAG Evaluation":
+    from views.rag_evaluation import show
     show(client, model_name)
